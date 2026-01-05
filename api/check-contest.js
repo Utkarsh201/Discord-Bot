@@ -3,6 +3,7 @@ import { isAllowedContest } from "../contestFilter.js";
 import { discordMessage } from "../discord.js";
 import { Log } from "../Contest.js";
 import dotenv from "dotenv"
+import mongoose from "mongoose";
 
 dotenv.config();
 
