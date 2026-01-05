@@ -2,39 +2,45 @@ import { getContest } from "../apiCall.js";
 import { isAllowedContest } from "../contestFilter.js";
 import { discordMessage } from "../discord.js";
 
+// Vercel REQUIRES this default export function
 export default async function handler(req, res) {
-  // 1. SECURITY: Check for a secret key
+  // Optional: Security Check (Recommended)
   const authHeader = req.headers["authorization"];
   if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
     return res.status(401).json({ error: "Unauthorized" });
   }
 
   try {
+    console.log("Starting job...");
     const contests = await getContest();
 
     if (!contests || contests.length === 0) {
+      console.log("No contests found right now.");
+      // Send a response back to GitHub Actions so it knows we are done
       return res.status(200).json({ message: "No contests found" });
     }
 
-    const allowed = contests.filter(isAllowedContest);
+    console.log("Processing contests...");
 
-    // Use Promise.all to ensure all messages are sent before function ends
-    await Promise.all(
-      allowed.map(async (c) => {
-        const durationHours = (c.duration / 3600).toFixed(2);
-        await discordMessage(
-          c.event,
-          c.resource,
-          c.start,
-          durationHours,
-          c.href
-        );
-      })
-    );
+    // Fix: Use 'for...of' loop so we wait for each message to send
+    const allowedContests = contests.filter(isAllowedContest);
 
-    return res.status(200).json({ success: true, processed: allowed.length });
+    for (const c of allowedContests) {
+      const durationHours = (c.duration / 3600).toFixed(2);
+
+      // We await this so the function doesn't close before sending
+      await discordMessage(c.event, c.resource, c.start, durationHours, c.href);
+    }
+
+    console.log("Job finished successfully.");
+
+    // Return success to Vercel/GitHub
+    return res
+      .status(200)
+      .json({ success: true, count: allowedContests.length });
   } catch (error) {
-    console.error(error);
+    console.error("Job failed:", error.message);
+    // Return error status instead of killing the process
     return res.status(500).json({ error: error.message });
   }
 }
