@@ -2,6 +2,9 @@ import { getContest } from "../apiCall.js";
 import { isAllowedContest } from "../contestFilter.js";
 import { discordMessage } from "../discord.js";
 import { Log } from "../Contest.js";
+import dotenv from "dotenv"
+
+dotenv.config();
 
 
 let isConnected = false;
@@ -62,7 +65,7 @@ export default async function handler(req, res) {
       }
       // We await this so the function doesn't close before sending
       await discordMessage(c.event, c.resource, c.start, durationHours, c.href);
-      await Log.create({ _id: contestId });gi
+      await Log.create({ _id: contestId });
     }
 
     console.log("Job finished successfully.");
