@@ -5,20 +5,22 @@ dotenv.config();
 export async function getContest() {
   try {
     const currentTime = new Date();
-    const oneHourLater = new Date(currentTime.getTime() + 60 * 60 * 1000);
+    const oneHourLater = new Date(
+      currentTime.getTime() + 7 * 24 * 60 * 60 * 1000
+    );
 
     console.log("1. Preparing parameters...");
     const params = {
       start__gt: currentTime.toISOString(),
       start__lt: oneHourLater.toISOString(),
       order_by: "start",
-      resource__name__in: "codeforces.com,leetcode.com,codechef.com,atcoder.jp",
+      resource__in: "codeforces.com,leetcode.com,codechef.com,atcoder.jp",
       limit: 5, 
     };
 
     console.log("2. Sending Request...");
     
-    const response = await axios.get("https://clist.by/api/v4/contest/", {
+    const response = await axios.get("https://clist.by:443/api/v4/contest/", {
       params,
       headers: {
         Authorization: `ApiKey ${process.env.CLIST_USERNAME}:${process.env.CLIST_API_KEY}`,
@@ -30,7 +32,7 @@ export async function getContest() {
       response.data.objects.length,
       "contests."
     );
-    
+
     return response.data.objects;
   } catch (error) {
     if (error.response) {
@@ -67,7 +69,7 @@ export async function getContest() {
 //     start__gte: weekStart.toISOString(),
 //     start__lte: weekEnd.toISOString(),
 //     order_by: "start",
-//     resource__name__in: "codeforces,leetcode,codechef,atcoder",
+//     resource__in: "codeforces,leetcode,codechef,atcoder",
 //   };
 
 //   const response = await axios.get("https://clist.by/api/v2/contest/", {

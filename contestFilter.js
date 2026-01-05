@@ -1,5 +1,5 @@
 export function isAllowedContest(c) {
-  const platform = c.resource.name.toLowerCase();
+  const platform = c.resource.toLowerCase();
   const title = c.event.toLowerCase();
   
   if (platform === "codechef") {
