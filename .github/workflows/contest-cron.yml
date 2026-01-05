@@ -2,8 +2,8 @@ name: Trigger Vercel Cron
 
 on:
   schedule:
-    - cron: '* * * * *' # Every minute
-  workflow_dispatch: # Allows manual button click testing
+    - cron: '* * * * *' # Runs every minute
+  workflow_dispatch: # Allows you to click "Run workflow" manually to test
 
 jobs:
   ping-vercel:
@@ -11,5 +11,5 @@ jobs:
     steps:
       - name: Call Vercel API
         run: |
-          curl -X POST https://YOUR-PROJECT-NAME.vercel.app/api/check-contest \
+          curl -X POST https://discord-bot-three-chi.vercel.app/api/check-contest \
           -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}"

@@ -1,4 +1,4 @@
-import { getContest } from "../apiCall.js"; // Fix paths as needed
+import { getContest } from "../apiCall.js";
 import { isAllowedContest } from "../contestFilter.js";
 import { discordMessage } from "../discord.js";
 
