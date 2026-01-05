@@ -1,0 +1,15 @@
+name: Trigger Vercel Cron
+
+on:
+  schedule:
+    - cron: '* * * * *' # Every minute
+  workflow_dispatch: # Allows manual button click testing
+
+jobs:
+  ping-vercel:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call Vercel API
+        run: |
+          curl -X POST https://YOUR-PROJECT-NAME.vercel.app/api/check-contest \
+          -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}"
