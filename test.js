@@ -22,7 +22,7 @@
 
 // // this is code is to make the own custom commnad.
 
-// // parameter slash commnad 
+// // parameter slash command 
 
 
 

@@ -11,20 +11,21 @@ cron.schedule("* * * * *", async () => {
       console.log("No contests during this hour");
       return;
     }
-
+    console.log("1...............");
     contests
-      .filter(isAllowedContest)
-      .forEach((c) => {
-        const durationHours = (c.duration / 3600).toFixed(2);
-
-        discordMessage(
-          c.event,
-          c.resource.name,
-          c.start,
-          durationHours,
-          c.href
-        );
-      });
+    .filter(isAllowedContest)
+    .forEach((c) => {
+      const durationHours = (c.duration / 3600).toFixed(2);
+      
+      discordMessage(
+        c.event,
+        c.resource.name,
+        c.start,
+        durationHours,
+        c.href
+      );
+    });
+    console.log("2...............");
   } catch (error) {
     console.error("Cron job failed:", error.message);
   }
