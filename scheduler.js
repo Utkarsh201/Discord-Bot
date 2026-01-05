@@ -1,7 +1,7 @@
 import cron from "node-cron";
 import { getContest } from "./apiCall.js";
 import { isAllowedContest } from "./contestFilter.js";
-import { DiscordMessage } from "./discord.js";
+import { discordMessage } from "./discord.js";
 
 cron.schedule("* * * * *", async () => {
   try {
@@ -17,7 +17,7 @@ cron.schedule("* * * * *", async () => {
       .forEach((c) => {
         const durationHours = (c.duration / 3600).toFixed(2);
 
-        DiscordMessage(
+        discordMessage(
           c.event,
           c.resource.name,
           c.start,

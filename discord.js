@@ -1,38 +1,3 @@
-// import { REST, Routes } from "discord.js";
-
-// const commands = [
-//   {
-//     name: "ping",
-//     description: "Replies with Pong!",
-//   },
-// ];
-
-// const rest = new REST({ version: "10" }).setToken(TOKEN);
-
-// try {
-//   console.log("Started refreshing application (/) commands.");
-
-//   await rest.put(Routes.applicationCommands(CLIENT_ID), { body: commands });
-
-//   console.log("Successfully reloaded application (/) commands.");
-// } catch (error) {
-//   console.error(error);
-// }
-
-
-// // this is code is to make the own custom commnad.
-
-// // parameter slash commnad 
-
-
-
-
-
-
-
-
-
-
 import { WebhookClient, EmbedBuilder } from "discord.js";
 import dotenv from "dotenv";
 
@@ -47,7 +12,7 @@ export async function discordMessage(value) {
     const webhookClient = new WebhookClient({ url: WEBHOOK_URL });
 
     const embed = new EmbedBuilder()
-      .setColor(0xff0000) 
+      .setColor(0xff0000)
       .setDescription(
         `About to start in 1 hr\n\n` +
           `**${event}**\n` +
