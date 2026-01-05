@@ -6,7 +6,7 @@ export async function getContest() {
   try {
     const currentTime = new Date();
     const oneHourLater = new Date(
-      currentTime.getTime() + 7 * 24 * 60 * 60 * 1000
+      currentTime.getTime() + 24 * 60 * 60 * 1000
     );
 
     console.log("1. Preparing parameters...");
@@ -15,7 +15,7 @@ export async function getContest() {
       start__lt: oneHourLater.toISOString(),
       order_by: "start",
       resource__in: "codeforces.com,leetcode.com,codechef.com,atcoder.jp",
-      limit: 1, 
+      limit: 5, 
     };
 
     console.log("2. Sending Request...");
