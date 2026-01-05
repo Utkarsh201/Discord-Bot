@@ -15,7 +15,7 @@ export async function getContest() {
       start__lt: oneHourLater.toISOString(),
       order_by: "start",
       resource__in: "codeforces.com,leetcode.com,codechef.com,atcoder.jp",
-      limit: 5, 
+      limit: 1, 
     };
 
     console.log("2. Sending Request...");
