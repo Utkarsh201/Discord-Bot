@@ -61,11 +61,11 @@ export default async function handler(req, res) {
 
       const contestId = `sent:${c.resource}:${c.event}:${c.start}`;
 
-      // const alreadySent = await Log.findById(contestId);
-      // if (alreadySent) {
-      //   console.log(`Skipping ${c.event} - Already notified.`);
-      //   continue; 
-      // }
+      const alreadySent = await Log.findById(contestId);
+      if (alreadySent) {
+        console.log(`Skipping ${c.event} - Already notified.`);
+        continue; 
+      }
       // We await this so the function doesn't close before sending
       await discordMessage(c.event, c.resource, c.start, durationHours, c.href);
       await Log.create({ _id: contestId });
