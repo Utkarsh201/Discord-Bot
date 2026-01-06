@@ -31,6 +31,8 @@ async function connectToDatabase() {
 // Vercel REQUIRES this default export function
 export default async function handler(req, res) {
   // Optional: Security Check (Recommended)
+
+  // this is to not allow any unauthorized user.
   const authHeader = req.headers["authorization"];
   if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
     return res.status(401).json({ error: "Unauthorized" });

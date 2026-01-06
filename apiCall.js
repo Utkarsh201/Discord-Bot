@@ -6,7 +6,7 @@ export async function getContest() {
   try {
     const currentTime = new Date();
     const oneHourLater = new Date(
-      currentTime.getTime() + 3*24 * 60 * 60 * 1000
+      currentTime.getTime() + 24 * 60 * 60 * 1000
     );
 
     console.log("1. Preparing parameters...");
